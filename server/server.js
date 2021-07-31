@@ -7,9 +7,10 @@ const expressPlayground =
   require("graphql-playground-middleware-express").default;
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
-
+const cors = require('cors')
 const User = require("./models/user");
 
+app.use(cors())
 dotenv.config();
 
 app.use(bodyParser.json());
