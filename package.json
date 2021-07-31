@@ -1,0 +1,23 @@
+{
+  "name": "graphql-express",
+  "version": "1.0.0",
+  "description": "graphQl & express app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/YiroYi/graphql-express.git"
+  },
+  "author": "Yiro Yi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/YiroYi/graphql-express/issues"
+  },
+  "homepage": "https://github.com/YiroYi/graphql-express#readme",
+  "dependencies": {
+    "concurrently": "^6.2.0",
+    "express": "^4.17.1"
+  }
+}
