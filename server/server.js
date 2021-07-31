@@ -3,11 +3,12 @@ const app = express();
 const { graphqlHTTP } = require("express-graphql");
 const bodyParser = require("body-parser");
 const { buildSchema } = require("graphql");
-const expressPlayground = require("graphql-playground-middleware-express").default;
+const expressPlayground =
+  require("graphql-playground-middleware-express").default;
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
- 
 
+const User = require("./models/user");
 
 dotenv.config();
 
@@ -22,14 +23,44 @@ app.use(
                 hello: String!
             }
             type RootMutation{
-                somemutation:String
+              addUser(userInput: UserInput!): User!
             }
+
+            type User {
+              _id: ID!
+              email: String!
+              password: String!
+            }
+
+            input UserInput {
+              email: String!
+              password: String!
+            }
+
             schema {
                 query: RootQuery
                 mutation: RootMutation
             }
         `),
     rootValue: {
+      addUser: async (args) => {
+        try {
+          const user = new User({
+            email: args.userInput.email,
+            password: args.userInput.password,
+          });
+
+          const result = await user.save();
+          console.log("IM MONGOOSE RESULT");
+          console.log(result);
+
+          return {
+            ...result._doc,
+          };
+        } catch (error) {
+          throw error;
+        }
+      },
       hello: () => {
         return "Hello back!!";
       },
@@ -37,6 +68,7 @@ app.use(
     graphiql: true,
   })
 );
+
 
 const db = process.env.DB_URL;
 
